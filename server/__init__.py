@@ -1,13 +1,11 @@
-from flask import Flask
-from pymongo import MongoClient
-import os
-from os.path import join, dirname
-from dotenv import load_dotenv, find_dotenv
-
 load_dotenv(find_dotenv())
 BACKEND_URL = os.environ.get("BACKEND_URL")
+JWT_SECRET = os.environ.get("JWT_SECRET")
 
 app = Flask(__name__)
+
+app.config["JWT_SECRET_KEY"] = JWT_SECRET
+jwt = JWTManager(app)
 
 client = MongoClient(BACKEND_URL)
 db = client['videosum']
