@@ -1,17 +1,15 @@
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask import Flask,request,Response,Blueprint
-from flask import Flask,request,Response,Blueprint
 from pymongo import MongoClient
-import os
 import json
 
-BACKEND_URL = os.environ.get("BACKEND_URL")
-client = MongoClient(BACKEND_URL)
-db = client['videosum']
-users = db['users']
+from modules.db import DB
+
+db = DB()
+users = db.get_user_collection()
+
 
 api_handler = Blueprint('api', __name__)
-
 
 @api_handler.route('/name', methods=['GET'])
 @jwt_required()

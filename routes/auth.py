@@ -1,18 +1,15 @@
 from flask import Flask,request,Response,Blueprint
 from pymongo import MongoClient
-import os
 import json
 import bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
+from modules.db import DB
 
+db = DB()
+users = db.get_user_collection()
 
-BACKEND_URL = os.environ.get("BACKEND_URL")
-client = MongoClient(BACKEND_URL)
-db = client['videosum']
-users = db['users']
 
 auth_handler = Blueprint('authentication', __name__)
-
 
 @auth_handler.route('/signup', methods=['POST'])
 def user_sign_up():
