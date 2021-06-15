@@ -1,7 +1,7 @@
 import numpy as np
 
 def convert_time_to_frame(timestamps: str, fps):
-    # "00:10,00:13\n00:21,00:26\n..."
+    # "10,13\n21,26\n..."
     frame_list = [[int(ts)*fps for ts in section.split(',')]
                   for section in timestamps.split("\n")]
     return frame_list
