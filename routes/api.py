@@ -1,9 +1,11 @@
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from flask import Flask,request,Response,Blueprint
-from pymongo import MongoClient
 import json
+from pymongo import MongoClient
+from flask import Flask,request,Response,Blueprint
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from modules.db import DB
+from utils.converter import convert_time_to_frame,convert_frames_to_summary
+
 
 db = DB()
 users = db.get_user_collection()
@@ -30,6 +32,8 @@ def upload_summary():
         request_data = request.get_json()
         # "00:10,00:13\n00:21,00:26\n..."
         time_stamps = request_data['time_stamps']
+        f_sections = convert_time_to_frame(time_stamps, 24)
+        frames = convert_frames_to_summary(f_sections, 24)
         return 0
     except:
         return 0

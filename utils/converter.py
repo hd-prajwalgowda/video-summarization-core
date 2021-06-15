@@ -8,10 +8,10 @@ def convert_time_to_frame(timestamps: str, fps):
 
 def convert_frames_to_summary(frames, total_frames):
     # [[240, 312], [504, 624], [720, 840], [1560, 1680], [2400, 2520],...]
-    a = np.zeros(total_frames, dtype="int")
+    summary = np.zeros(total_frames, dtype="int")
     for section in frames:
-        a[section[0]-1:section[1]] = 1
-    return a
+        summary[section[0]-1:section[1]] = 1
+    return summary
 
 def convert_summary_to_time(frames, fps):
     # [0,0,0,0,1,1,1,1,.....0,0,0,0]
