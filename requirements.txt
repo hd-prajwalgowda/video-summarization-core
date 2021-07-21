@@ -26,6 +26,7 @@ opencv-contrib-python==4.5.2.54
 pandas==1.2.4
 Pillow==8.2.0
 pipenv==2021.5.29
+pybase64==1.1.4
 pycodestyle==2.7.0
 pycparser==2.20
 PyJWT==2.1.0

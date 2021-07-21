@@ -1,8 +1,8 @@
 import json
+import os
 from pymongo import MongoClient
 from flask import Flask, request, Response, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
 from modules.db import DB
 from utils.converter import convert_time_to_frame, convert_frames_to_summary
 
@@ -57,8 +57,11 @@ def get_videos():
 def upload_video():
     try:
         # request_data = request.get_json()
-        print(request.files['file'])
+        print(request.files.getlist("file"))
+        base64_file = request.files['file']
+        base64_file.save(os.path.join("videos",base64_file.filename))
         return Response(json.dumps({'video': 'uploaded'}))
 
-    except:
+    except Exception as e:
+        print("this is  exception...." ,e)
         return 0
